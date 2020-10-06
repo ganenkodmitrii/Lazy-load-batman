@@ -4,14 +4,32 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dark-Knight</title>
+    <link rel="stylesheet" href="./css/styles.css" />
   </head>
   <body>
-    <div>
-      <input type="text" name="" id="filter" />
-      <button class="btn">search</button>
-    </div>
+    <!-- <header>
+      <div class="search__box">
+        <input type="text" name="" id="filter" />
+        <button class="btn">search</button>
+      </div>
+    </header> -->
 
-    <div class="container js-container"></div>
+    <ul class="container__list js-container"></ul>
+
+    <!-- Модальное окно -->
+    <div class="lightbox js-lightbox">
+      <div class="lightbox__overlay"></div>
+
+      <div class="lightbox__content">
+        <img class="lightbox__image" src="" alt="" />
+      </div>
+
+      <button
+        type="button"
+        class="lightbox__button"
+        data-action="close-lightbox"
+      ></button>
+    </div>
 
     <script src="./js/batman-list.js" type="module"></script>
     <script src="./js/index.js" type="module"></script>
