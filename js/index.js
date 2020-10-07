@@ -1,27 +1,17 @@
-import bantmanList from './batman-list.js';
+import batmanList from './batman-list.js';
 
 const refs = {
-  // input: document.querySelector('#filter'),
-  // button: document.querySelector('.btn'),
-  listContainer: document.querySelector('.js-container'),
-  modalContainer: document.querySelector('js-lightbox'),
+  galleryList: document.querySelector('.js-container'),
+  modalContainer: document.querySelector('.js-lightbox'),
+  modalCloseBtn: document.querySelector('button[data-action="close-lightbox"]'),
   modalImage: document.querySelector('.lightbox__image'),
+  modalOverlay: document.querySelector('.lightbox__overlay'),
 };
-// //elem.after(nodes) - добавляет nodes после узла elem
-
-// // const titleList = document.createElement('h1');
-// // titleList.classList.add('container__name');
-// // titleList.textContent = 'Dark Knignt!';
-
-// const createList = document.createElement('ul');
-// createList.classList.add('container__list');
-
-// refs.list.append(createList); //добавил узел
 
 // Создание и рендер разметки по массиву данных и предоставленному шаблону.
-// const containerList = document.querySelector('ul');
-const galleryMarkup = createGalleryMarkup(bantmanList);
-refs.listContainer.insertAdjacentHTML('beforeend', galleryMarkup);
+
+const galleryMarkup = createGalleryMarkup(batmanList);
+refs.galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
 
 function createGalleryMarkup(batmans) {
   return batmans
@@ -30,7 +20,7 @@ function createGalleryMarkup(batmans) {
     <li class="container__item">
   <a
     class="container__link"
-    href=""
+    href="${src}"
   >
     <img
       class="container__image"
@@ -47,17 +37,32 @@ function createGalleryMarkup(batmans) {
     .join('');
 }
 
-// Открытие модалки
-refs.listContainer.addEventListener('click', onOpenModel);
+refs.galleryList.addEventListener('click', onOpenModal);
 
-function onOpenModel(e) {
-  e.preventDefault();
-  if (e.target.nodeName !== 'IMG') {
+function onOpenModal(evt) {
+  evt.preventDefault();
+
+  if (evt.target.nodeName !== 'IMG') {
     return;
   }
+
   refs.modalContainer.classList.add('is-open');
 
-  //Добавляем изображение на модалку
-  refs.modalImage.src = e.target.dataset.sourse;
-  refs.modalImage.alt = e.target.alt;
+  // Подмена значения атрибута src элемента img.lightbox__image.
+  refs.modalImage.src = evt.target.dataset.source;
+  refs.modalImage.alt = evt.target.alt;
+
+  // window.addEventListener('keydown', onCloseModalByEscape);
+}
+
+// Закрытие модального окна по клику на кнопку button[data-action="close-lightbox"].
+refs.modalCloseBtn.addEventListener('click', onCloseModal);
+
+function onCloseModal() {
+  refs.modalContainer.classList.remove('is-open');
+
+  // Очистка значения атрибута src элемента img.lightbox__image.
+  refs.modalImage.src = '';
+  refs.modalImage.alt = '';
+  window.removeEventListener('keydown', onCloseModalByEscape);
 }
