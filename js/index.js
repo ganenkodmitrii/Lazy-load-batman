@@ -41,6 +41,11 @@ function createGalleryMarkup(batmans) {
     .join('');
 }
 
+/*
+ * Библиотека lazysizes
+ * - feature detection
+ */
+
 if ('loading' in HTMLImageElement.prototype) {
   console.log('Браузер поддерживает lazyload');
   addSrcAttrToLazyImages();
